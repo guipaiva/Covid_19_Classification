@@ -4,17 +4,16 @@ from base_loader import BaseLoader
 
 class SimpleLoader(BaseLoader):
 
-	def __init__(self, directory, im_size, batch_size=32):
-		super(SimpleLoader, self).__init__(directory, im_size, batch_size=32)
+	def __init__(self, directory, im_shape, batch_size=32):
+		super(SimpleLoader, self).__init__(directory, im_shape, batch_size)
 		self.generator = ImageDataGenerator(rescale=1./255, validation_split=0.2)
 
 	def get_train_ds(self):
 		train_ds = self.generator.flow_from_directory(
 			directory=self.directory,
-			#seed = 36,
 			class_mode='categorical',
 			batch_size=self.batch_size,
-			target_size=(self.im_size, self.im_size),
+			target_size=(self.im_shape),
 			subset='training'
 		)
 
@@ -23,10 +22,9 @@ class SimpleLoader(BaseLoader):
 	def get_validation_ds(self):
 		vald_ds = self.generator.flow_from_directory(
 			directory=self.directory,
-			#seed = 36,
 			class_mode='categorical',
 			batch_size=self.batch_size,
-			target_size=(self.im_size, self.im_size),
+			target_size=(self.im_shape),
 			subset='validation'
 		)
 

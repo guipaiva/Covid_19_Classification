@@ -1,6 +1,6 @@
 class BaseLoader(object):
-	def __init__(self, directory, im_size, batch_size=32):
-		self.im_size = im_size
+	def __init__(self, directory, im_shape, batch_size):
+		self.im_shape = im_shape
 		self.batch_size = batch_size
 		self.directory = directory
 
