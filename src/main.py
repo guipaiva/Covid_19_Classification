@@ -3,7 +3,7 @@ from trainers.simple_trainer import SimpleTrainer
 from models import vgg16
 
 if __name__ == "__main__":
-	im_directory = "data/COVID-19 Radiography Database"
+	im_directory = "../data/COVID-19 Radiography Database"
 	im_shape = (224,224,3)
 	data_loader = SimpleLoader(im_directory, im_shape)
 
