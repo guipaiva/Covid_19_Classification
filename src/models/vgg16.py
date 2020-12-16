@@ -35,20 +35,3 @@ class transfer_learning_VGG16(BaseModel):
 			loss = 'sparse_categorical_crossentropy',
 			metrics = ['accuracy']
 		)
-
-
-'''generator = Image_generator(im_size)
-train, valid = generator.generate()
-log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)'''
-
-
-
-
-'''trainer = model.fit(
-		train,
-		validation_data = valid,
-		epochs = 8,
-		verbose = 2,
-		callbacks=[tensorboard_callback],
-	)'''
