@@ -3,7 +3,7 @@ import sys
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf 
-from base_model import BaseModel
+from base.base_model import BaseModel
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 import tensorflow.keras.applications as applications
 
@@ -20,7 +20,7 @@ class transfer_learning_VGG16(BaseModel):
 	
 	def build_model(self):
 		self.model = tf.keras.Sequential()
-		vgg = applications.VGG16(include_top= False, input_shape = (self.im_shape))
+		vgg = applications.VGG16(include_top= False, input_shape = self.im_shape)
 		for layer in vgg.layers:
 			layer.trainable = False
 		

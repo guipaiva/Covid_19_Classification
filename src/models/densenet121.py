@@ -3,7 +3,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf 
 from tensorflow.keras.layers import Flatten, Dense, Dropout
-from base_model import BaseModel
+from base.base_model import BaseModel
 import tensorflow.keras.applications as applications
 
 class transfer_learning_DenseNet121(BaseModel):

@@ -1,4 +1,4 @@
-from base_trainer import BaseTrainer
+from base.base_trainer import BaseTrainer
 import datetime
 import tensorflow as tf
 

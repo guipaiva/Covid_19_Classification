@@ -1,5 +1,5 @@
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from base_loader import BaseLoader
+from base.base_loader import BaseLoader
 
 
 class SimpleLoader(BaseLoader):
@@ -13,7 +13,7 @@ class SimpleLoader(BaseLoader):
 			directory=self.directory,
 			class_mode='categorical',
 			batch_size=self.batch_size,
-			target_size=(self.im_shape),
+			target_size= self.im_shape[:-1],
 			subset='training'
 		)
 
@@ -24,7 +24,7 @@ class SimpleLoader(BaseLoader):
 			directory=self.directory,
 			class_mode='categorical',
 			batch_size=self.batch_size,
-			target_size=(self.im_shape),
+			target_size= self.im_shape[:-1],
 			subset='validation'
 		)
 

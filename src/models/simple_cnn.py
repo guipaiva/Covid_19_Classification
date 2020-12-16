@@ -2,7 +2,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf 
-from base_model import BaseModel
+from base.base_model import BaseModel
 from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense, Dropout
 
 
