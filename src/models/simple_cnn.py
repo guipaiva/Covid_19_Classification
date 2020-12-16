@@ -36,9 +36,6 @@ class SimpleCNN(BaseModel):
 
 		self.model.compile(
 			optimizer = 'adam',
-			loss = 'sparse_categorical_crossentropy',
+			loss = 'categorical_crossentropy',
 			metrics = ['accuracy']
 		)
-
-
-# trainer = model.fit(train, validation_data = valid, epochs = 8, verbose = 2)

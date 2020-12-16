@@ -32,6 +32,6 @@ class transfer_learning_VGG16(BaseModel):
 
 		self.model.compile(
 			optimizer = 'adam',
-			loss = 'sparse_categorical_crossentropy',
+			loss = 'categorical_crossentropy',
 			metrics = ['accuracy']
 		)
