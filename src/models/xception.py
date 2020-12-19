@@ -17,6 +17,7 @@ class transfer_learning_Xception(BaseModel):
             exit(0)
 
         print('Building...')
+        self.build_model()
 
     def build_model(self):
         self.model = tf.keras.Sequential()
@@ -37,3 +38,5 @@ class transfer_learning_Xception(BaseModel):
             loss = 'categorical_crossentropy',
             metrics = ['accuracy']
         )
+
+        print(self.model.summary())

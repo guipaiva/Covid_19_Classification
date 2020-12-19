@@ -17,6 +17,7 @@ class transfer_learning_Resnet50V2(BaseModel):
 			exit(0)
 
 		print('Building...')
+		self.build_model()
 
 	def build_model(self):
 		self.model = tf.keras.Sequential()
