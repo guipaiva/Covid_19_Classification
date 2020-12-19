@@ -9,7 +9,8 @@ from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense, Dropout
 
 class SimpleCNN(BaseModel):
 	def __init__(self, im_shape):
-		super(SimpleCNN, self).__init__(im_shape)
+		name = 'SimpleCNN'
+		super(SimpleCNN, self).__init__(im_shape, name)
 		self.build_model()
 	
 	def build_model(self):

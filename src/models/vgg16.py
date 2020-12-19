@@ -9,7 +9,8 @@ import tensorflow.keras.applications as applications
 
 class transfer_learning_VGG16(BaseModel):
 	def __init__(self, im_shape):
-		super(transfer_learning_VGG16, self).__init__(im_shape)
+		name = 'VGG16'
+		super(transfer_learning_VGG16, self).__init__(im_shape, name)
 		try: 
 			assert im_shape == (224, 224, 3)
 		except AssertionError: 

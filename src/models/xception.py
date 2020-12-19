@@ -8,7 +8,8 @@ import tensorflow.keras.applications as applications
 
 class transfer_learning_Xception(BaseModel):
     def __init__(self, im_shape):
-        super(transfer_learning_Xception, self).__init__(im_shape)
+        name = 'Xception'
+        super(transfer_learning_Xception, self).__init__(im_shape, name)
         try: 
             assert im_shape == (299, 299, 3)
         except AssertionError: 
