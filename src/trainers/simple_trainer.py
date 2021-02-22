@@ -5,7 +5,7 @@ import tensorflow as tf
 class SimpleTrainer(BaseTrainer):
 	def __init__(self, model, name, data, epochs):
 		super(SimpleTrainer, self).__init__(model, name, data, epochs)
-		self.log_dir = "../logs/fit/" + self.name + "/" + datetime.datetime.now().strftime("%d%m%Y")
+		self.log_dir = "../TensorBoard/fit/" + self.name + "/" + datetime.datetime.now().strftime("%d%m%Y")
 		self.accuracy = []
 		self.loss = []
 		self.val_accuracy = []
