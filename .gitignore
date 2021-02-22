@@ -133,3 +133,6 @@ dmypy.json
 
 #TensorBoard Logs
 logs/
+
+#COVID-Net Database WIP
+COVNet/
