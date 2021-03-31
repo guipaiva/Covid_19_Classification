@@ -131,8 +131,5 @@ dmypy.json
 #VSCode
 .vscode/
 
-#TensorBoard Logs
-TensorBoard/
-
-#COVID-Net Database WIP
-COVNet/
+#Logs
+logs/
