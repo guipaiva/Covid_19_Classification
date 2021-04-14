@@ -8,22 +8,10 @@ test_path = 'data/test'
 
 for path in (train_path, test_path):
     for label in ('positive','negative'):
-        if not os.path.isdir(os.path.join())
-
-try:
-    #Create train directories
-    os.mkdir(os.path.join(train_path, 'positive'))
-    os.mkdir(os.path.join(train_path, 'negative'))  
-except FileExistsError:
-    pass
-
-try:
-    #Create test directories
-    os.mkdir(os.path.join(test_path, 'positive'))
-    os.mkdir(os.path.join(test_path, 'negative'))
-except FileExistsError:
-    pass
-
+        try:
+            os.mkdir(os.path.join(path, label))
+        except FileExistsError:
+            pass
 
 with open(test_split, 'r') as test_file:
     for line in test_file:
