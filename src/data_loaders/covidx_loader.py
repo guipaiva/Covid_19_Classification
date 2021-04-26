@@ -3,7 +3,7 @@ from base.base_loader import BaseLoader
 import pandas as pd
 
 class CovidxLoader(BaseLoader):
-	def __init__(self, directory, label_dir, im_shape, batch_size=32):
+	def __init__(self, directory, im_shape, label_dir, batch_size=32):
 		super(CovidxLoader, self).__init__(directory, im_shape, batch_size, label_dir)
 		self.generator = ImageDataGenerator(rescale=1./255, validation_split=0.2)
 		self.dataframe = pd.read_csv(label_dir)
