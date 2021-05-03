@@ -62,4 +62,4 @@ class DenseNet121(BaseModel):
 			metrics=['accuracy']
 		)
 
-		print('{} built'.format(self.name))
+		print('Model {} built'.format(self.name))
