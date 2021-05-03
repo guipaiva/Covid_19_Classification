@@ -1,7 +1,7 @@
 from utils.definitions import MODELS_SHAPE
 
 class BaseModel(object):
-	def __init__(self, im_shape, name, classes, transfer_learn):
+	def __init__(self, name, im_shape, classes, transfer_learn):
 		self.model = None
 		self.im_shape = im_shape
 		self.name = name
@@ -21,6 +21,6 @@ class BaseModel(object):
 				print('Error: Image shape without transfer learning must be', end = ' ')
 				print(*req_dimension['default'], sep = 'x')
 			exit(0)
-	
+		print('Building {}...'.format(self.name))
 	def build_model(self):
 		raise NotImplementedError

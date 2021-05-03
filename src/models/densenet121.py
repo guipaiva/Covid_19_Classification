@@ -7,11 +7,10 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class DenseNet121(BaseModel):
-	def __init__(self, im_shape, transfer_learn, classes):
+	def __init__(self, im_shape, classes, transfer_learn):
 		name = 'DenseNet121'
-		super(DenseNet121, self).__init__(im_shape, name, classes, transfer_learn)
+		super(DenseNet121, self).__init__(name, im_shape, classes, transfer_learn)
 
-		print('Building {}...'.format(self.name))
 		self.build_model()
 
 	def build_model(self):
@@ -49,5 +48,6 @@ class DenseNet121(BaseModel):
 			loss='binary_crossentropy',
 			metrics=['accuracy']
 		)
+		print('Model built')
 
-		print('Model {} built'.format(self.name))
+		

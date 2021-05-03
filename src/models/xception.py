@@ -7,21 +7,9 @@ from base.base_model import BaseModel
 import tensorflow.keras.applications as applications
 
 class Xception(BaseModel):
-    def __init__(self, im_shape):
+    def __init__(self, im_shape, classes, transfer_learn):
         name = 'Xception'
-        super(Xception, self).__init__(im_shape, name)
-        try:
-            if self.transfer_learn:
-                assert len(
-                    im_shape) == 3 and im_shape[0] >= 71 and im_shape[1] >= 71 and im_shape[2] == 3
-            else:
-                assert im_shape == (299, 299, 3)
-        except AssertionError:
-            print(
-                'Error: Image required to have 3 channels and with and height should not be smaller than 71')
-            exit(0)
-
-        print('Building {}...'.format(self.name))
+        super(Xception, self).__init__(name, im_shape, classes, transfer_learn)
         self.build_model()
 
     def build_model(self):
@@ -37,11 +25,16 @@ class Xception(BaseModel):
             self.model.add(Flatten())
             self.model.add(Dense(512, activation = 'relu'))
             self.model.add(Dropout(.5))
-            self.model.add(Dense(3, activation = 'sigmoid'))
+            #Prediction
+            if self.classes == 2:
+                self.model.add(Dense(2, activation = 'sigmoid'))
+            else:
+                self.model.add(Dense(self.classes, activation = 'softmax'))
         else:
             self.model = applications.Xception(
-                classes = 2,
-                classifier_activation = 'sigmoid' 
+                include_top = True,
+                weights = None,
+                classes = self.classes
             )
 
         self.model.compile(
