@@ -6,10 +6,10 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
-class Resnet50V2(BaseModel):
+class ResNet50V2(BaseModel):
     def __init__(self, im_shape, transfer_learn):
-        name = 'Resnet50'
-        super(Resnet50V2, self).__init__(im_shape, name)
+        name = 'ResNet50'
+        super(ResNet50V2, self).__init__(im_shape, name)
         try:
             if self.transfer_learn:
                 assert len(
