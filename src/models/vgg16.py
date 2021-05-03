@@ -3,7 +3,6 @@ import tensorflow.keras.applications as applications
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 from base.base_model import BaseModel
 import os
-import sys
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class VGG16(BaseModel):

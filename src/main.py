@@ -1,5 +1,5 @@
 from trainers.simple_trainer import SimpleTrainer
-from models import vgg16, xception, densenet121, resnet50V2, simple_cnn
+from models import vgg16, xception, densenet121, resnet50V2
 from utils.definitions import DATA_DIR
 from data_loaders import CovidxLoader, SirmLoader
 import os
