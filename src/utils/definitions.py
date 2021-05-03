@@ -11,19 +11,19 @@ LOADERS_DIR = os.path.join(SRC_DIR, 'data_loader')
 
 MODELS_SHAPE = {
     'Xception': {
-        min_dimensions: (71,71,3),
-        default: (299,299,3)
+        'min': (71,71,3),
+        'default': (299,299,3)
     },
     'DenseNet121': {
-        min_dimensions: (32,32,3),
-        default: (224,224,3)
+        'min': (32,32,3),
+        'default': (224,224,3)
     },
     'ResNet50': {
-        min_dimensions: (32,32,3),
-        default: (224,224,3)
+        'min': (32,32,3),
+        'default': (224,224,3)
     },
     'VGG16': {
-        min_dimensions: (32,32,3),
-        default: (224,224,3)
+        'min': (32,32,3),
+        'default': (224,224,3)
     }
 }

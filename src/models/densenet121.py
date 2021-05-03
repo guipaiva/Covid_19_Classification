@@ -11,18 +11,6 @@ class DenseNet121(BaseModel):
 		name = 'DenseNet121'
 		super(DenseNet121, self).__init__(im_shape, name, classes, transfer_learn)
 
-		try:
-			if self.transfer_learn:
-				assert len(im_shape) == 3 and im_shape[0] >= 32 and im_shape[1] >= 32 and im_shape[2] == 3
-			else:
-				assert im_shape == (224, 224, 3)
-		except AssertionError:
-			if self.transfer_learn:
-				print('Error: Image required to have 3 channels and with and height should not be smaller than 32')
-			else:
-				print('Error: Image shape without transfer learning must be 224x224x3')
-			exit(0)
-
 		print('Building {}...'.format(self.name))
 		self.build_model()
 
