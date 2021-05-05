@@ -133,3 +133,6 @@ dmypy.json
 
 #Logs
 logs/
+
+#Models top layers info
+models_info/
