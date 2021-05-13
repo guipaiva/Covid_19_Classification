@@ -1,9 +1,9 @@
-Pre-process input for each model
-Fix Dense layers on each model
+Pre-process input for each model 
 Fix loss function for binary or multiclass classification
 Rebuild prediction layer with activation function based on n_classes
-Check the possibility of classifier function on each model
-    - Xception = classifier_activation + include_top = True + classes = n_classes can be used
-    - Densenet = Cannot use classifier_function parameter neither include_top, needs to be implemented
-    - Resnet = classifier_activation + include_top = True + classes = n_classes can be used
-    - VGG16 = classifier_activation + include_top = True + classes = n_classes can be used
+Implement top layers on each model
+    - Xception [  ]
+    - Densenet [  ]
+    - ResnetV2 [  ]
+    - Resnet   [OK]
+    - VGG16    [  ]
