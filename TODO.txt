@@ -1,9 +1,31 @@
-Pre-process input for each model 
-Fix loss function for binary or multiclass classification
-Rebuild prediction layer with activation function based on n_classes
-Implement top layers on each model
-    - Xception [  ]
-    - Densenet [  ]
-    - ResnetV2 [  ]
-    - Resnet   [OK]
-    - VGG16    [  ]
+Models: 
+    Pre-process input for each model 
+    Fix loss function for binary or multiclass classification
+    Rebuild prediction layer with activation function based on n_classes
+    Implement top layers on each model
+        - Xception [  ]
+        - Densenet [  ]
+        - ResnetV2 [  ]
+        - Resnet   [OK]
+        - VGG16    [  ]
+
+Loaders: 
+    Implement multiclass option on loaders
+        - One-hot for multiclass
+        - Binary for positive/negative
+
+Data:
+    Organize data for multi/binary classification
+    Verify unbalanced data
+
+Trainers:
+    Fix trainer script for multi/binary classification
+        - AUC on binary classification
+        - Confusion matrix
+        - Other metrics
+
+General:
+    Create scripts for training and evaluation
+    CLI
+    Generate heatmaps from last activation layer
+    Use defined directories
