@@ -3,7 +3,7 @@ Models:
     Fix loss function for binary or multiclass classification
     Rebuild prediction layer with activation function based on n_classes
     Implement top layers on each model
-        - Xception [  ]
+        - Xception [OK]
         - Densenet [  ]
         - ResnetV2 [  ]
         - Resnet   [OK]
