@@ -5,9 +5,9 @@ Models:
     Implement top layers on each model
         - Xception [OK]
         - Densenet [  ]
-        - ResnetV2 [  ]
+        - ResnetV2 [OK]
         - Resnet   [OK]
-        - VGG16    [  ]
+        - VGG16    [OK]
 
 Loaders: 
     Implement multiclass option on loaders
