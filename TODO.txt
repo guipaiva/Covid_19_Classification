@@ -4,7 +4,7 @@ Models:
     Rebuild prediction layer with activation function based on n_classes
     Implement top layers on each model
         - Xception [OK]
-        - Densenet [  ]
+        - Densenet [OK]
         - ResnetV2 [OK]
         - Resnet   [OK]
         - VGG16    [OK]
