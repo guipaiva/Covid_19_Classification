@@ -17,7 +17,6 @@ class VGG16(BaseModel):
         self.layers_trainable = False if self.transfer_learn else True
         self.loss = 'binary_crossentropy' if classes == 2 else 'categorical_crossentropy'
 
-        self.check_shape()
         self.build_model()
 
     def build_model(self):
