@@ -13,6 +13,7 @@ Loaders:
     Implement multiclass option on loaders
         - One-hot for multiclass
         - Binary for positive/negative
+            * CovidX -> create df columns 
 
 Data:
     Organize data for multi/binary classification
