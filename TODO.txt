@@ -18,7 +18,9 @@ Loaders:
 
 Data:
     Organize data for multi/binary classification
+        - CovidX [OK]
     Verify unbalanced data
+        - CovidX [OK]
 
 Trainers:
     Fix trainer script for multi/binary classification

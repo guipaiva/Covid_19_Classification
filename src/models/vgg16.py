@@ -12,10 +12,10 @@ class VGG16(BaseModel):
         name = 'VGG16'
         super(VGG16, self).__init__(name, im_shape, transfer_learn)
         self.classes = classes
-        self.activation_function = 'sigmoid' if classes == 2 else 'softmax'
+        self.activation_function = 'sigmoid' if classes == 1 else 'softmax'
         self.weights = 'imagenet' if self.transfer_learn else None
         self.layers_trainable = False if self.transfer_learn else True
-        self.loss = 'binary_crossentropy' if classes == 2 else 'categorical_crossentropy'
+        self.loss = 'binary_crossentropy' if classes == 1 else 'categorical_crossentropy'
 
         self.build_model()
 
