@@ -8,8 +8,13 @@ class CovidxLoader(BaseLoader):
         super(CovidxLoader, self).__init__(directory, im_shape, batch_size)
         self.generator = ImageDataGenerator(
             rescale=1./255, validation_split=0.2)
-        self.dataframe = pd.read_csv(label_dir, sep=' ', names=[
-                                     'id', 'image', 'label', 'source'], usecols=['image', 'label'], header=None)
+        self.dataframe = pd.read_csv(
+            label_dir,
+            sep=' ',
+            names=['id', 'image', 'label', 'source'],
+            usecols=['image', 'label'],
+            header=None
+        )
         self.class_mode = class_mode
 
     def get_train_ds(self):
@@ -22,7 +27,7 @@ class CovidxLoader(BaseLoader):
             batch_size=self.batch_size,
             seed=36,
             subset='training',
-            target_size=self.im_shape[:-1]
+            target_size=(self.im_shape[:-1])
         )
 
         return train_ds
