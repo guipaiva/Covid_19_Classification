@@ -1,7 +1,7 @@
 import tensorflow as tf
 import tensorflow.keras.applications as applications
 from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.layers import Flatten, Dense, Lambda, Flatten
+from tensorflow.keras.layers import Flatten, Dense, Lambda, Flatten, BatchNormalization, Dropout
 from base.base_model import BaseModel
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -42,15 +42,33 @@ class VGG16(BaseModel):
             Dense(
                 units=4096,
                 activation='relu',
-                name='FC1'
+                name='VGG_FC1'
             )
         )
         self.model.add(
             Dense(
                 units=4096,
                 activation='relu',
-                name='FC2'
+                name='VGG_FC2'
             )
+        )
+        self.model.add(
+            Dense(
+                units=512,
+                activation='relu',
+                name='Dense1'
+            )
+        )
+        self.model.add(BatchNormalization(name='BN1'))
+        self.model.add(
+            Dense(
+                units=128,
+                activation='relu',
+                name='Dense2'
+            )
+        )
+        self.model.add(
+            Dropout(rate = 0.5)
         )
         self.model.add(
             Dense(

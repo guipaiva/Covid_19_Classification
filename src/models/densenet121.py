@@ -8,7 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class DenseNet121(BaseModel):
-    def __init__(self, im_shape, classes, transfer_learn):
+    def __init__(self, im_shape, transfer_learn, classes):
         name = 'DenseNet121'
         super(DenseNet121, self).__init__(name, im_shape, transfer_learn)
         self.classes = classes

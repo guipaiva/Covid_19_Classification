@@ -1,6 +1,8 @@
 from base.base_trainer import BaseTrainer
 import datetime
 import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class SimpleTrainer(BaseTrainer):
 	def __init__(self, model, name, data, epochs):

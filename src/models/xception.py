@@ -8,7 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class Xception(BaseModel):
-    def __init__(self, im_shape, classes, transfer_learn):
+    def __init__(self, im_shape, transfer_learn, classes):
         name = 'Xception'
         super(Xception, self).__init__(name, im_shape, transfer_learn)
 
