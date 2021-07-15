@@ -16,7 +16,7 @@ if __name__ == "__main__":
 	validation_data = loader.get_validation_ds()
 	data = {'train': train_data, 'validation': validation_data}
 
-	model = densenet121.DenseNet121(im_shape, 1, False)
+	model = vgg16.VGG16(im_shape, 1, False)
 	
 	trainer = SimpleTrainer(model.model, model.name, data, epochs = 12)
 
