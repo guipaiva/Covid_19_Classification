@@ -10,7 +10,7 @@ def plot(base_path):
 		tmp_df = pd.read_csv(file_path, usecols = [2], header = 0, names = [filename[:-4]])
 		df = pd.concat([df, tmp_df], axis=1)
 
-	fig, ax = plt.subplots()
+	_, ax = plt.subplots()
 
 	for column in df.columns[1:]:
 		ax.plot(df['epochs'], df[column], label = column)

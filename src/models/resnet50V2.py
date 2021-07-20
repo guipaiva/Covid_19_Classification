@@ -1,10 +1,11 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 import tensorflow.keras.applications as applications
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 from base.base_model import BaseModel
-from tensorflow.keras.layers import Dense, Lambda, GlobalAveragePooling2D, BatchNormalization
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+from tensorflow.keras.layers import Dense, Lambda, GlobalAveragePooling2D, BatchNormalization, Dropout
+
 
 
 class ResNet50V2(BaseModel):
@@ -31,16 +32,15 @@ class ResNet50V2(BaseModel):
 			weights=self.weights
 		)
 
-		for layer in resnet.layers:
-			layer.trainable = self.layers_trainable
+		resnet.trainable = self.layers_trainable
 
 		self.model.add(resnet)
 
 		# FC Layers
 		self.model.add(GlobalAveragePooling2D(name='avg_pool'))
-		self.model.add(Dense(256, activation='relu'))
+		self.model.add(Dense(128, activation='relu'))
 		self.model.add(BatchNormalization())
-		self.model.add()
+		self.model.add(Dropout(0.2))
 		self.model.add(
 			Dense(
 				units=self.classes,

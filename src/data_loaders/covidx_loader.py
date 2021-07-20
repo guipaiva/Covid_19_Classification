@@ -1,9 +1,6 @@
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from base.base_loader import BaseLoader
 import pandas as pd
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 
 class CovidxLoader(BaseLoader):
     def __init__(self, directory, im_shape, label_dir, class_mode, batch_size=32):
