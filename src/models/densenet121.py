@@ -31,8 +31,7 @@ class DenseNet121(BaseModel):
             weights=self.weights
         )
 
-        for layer in densenet.layers:
-            layer.trainable = self.layers_trainable
+        densenet.trainable = self.layers_trainable
         self.model.add(densenet)
 
         # FC Layers

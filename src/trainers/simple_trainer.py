@@ -12,6 +12,10 @@ class SimpleTrainer(BaseTrainer):
 		self.loss = []
 		self.val_accuracy = []
 		self.val_loss = []
+		self.class_weights = {
+			0: (1/self.data["train"])
+		}
+		
 
 	def train(self):
 		tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=self.log_dir, histogram_freq=1)
@@ -20,7 +24,7 @@ class SimpleTrainer(BaseTrainer):
 			validation_data = self.data["validation"],
 			callbacks = [tensorboard_callback],
 			epochs = self.epochs,
-			verbose = 2
+			verbose = 1
 		)
 		self.loss.extend(history.history['loss'])
 		self.accuracy.extend(history.history['accuracy'])

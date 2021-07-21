@@ -1,6 +1,8 @@
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from base.base_loader import BaseLoader
 import pandas as pd
+from sklearn.model_selection import train_test_split
+
 
 class CovidxLoader(BaseLoader):
     def __init__(self, directory, im_shape, label_dir, class_mode, batch_size=32):
@@ -10,37 +12,45 @@ class CovidxLoader(BaseLoader):
         self.dataframe = pd.read_csv(
             label_dir,
             sep=' ',
-            names=['id', 'image', 'label', 'source'],
-            usecols=['image', 'label'],
+            names=['id', 'filename', 'label', 'source'],
+            usecols=['filename', 'label'],
             header=None
         )
+        self.train_df, self.valid_df = train_test_split(
+            self.dataframe, 
+            test_size=0.2,
+            random_state=36,
+            stratify=self.dataframe['label']
+        )
         self.class_mode = class_mode
+        print(self.train_df['label'].value_counts())
+        print(self.valid_df['label'].value_counts())
+        #print(self.dataframe.loc[self.dataframe['label'] == 'positive'])
 
     def get_train_ds(self):
         train_ds = self.generator.flow_from_dataframe(
-            dataframe=self.dataframe,
+            dataframe=self.train_df,
             directory=self.directory,
-            x_col='image',
+            x_col='filename',
             y_col='label',
             class_mode=self.class_mode,
             batch_size=self.batch_size,
-            seed=36,
-            subset='training',
+            shuffle=True,
+            seed=12,
             target_size=(self.im_shape[:-1])
         )
-
         return train_ds
 
     def get_validation_ds(self):
         validation_ds = self.generator.flow_from_dataframe(
-            dataframe=self.dataframe,
+            dataframe=self.valid_df,
             directory=self.directory,
-            x_col='image',
+            x_col='filename',
             y_col='label',
             class_mode=self.class_mode,
             batch_size=self.batch_size,
-            seed=36,
-            subset='validation',
+            shuffle=True,
+            seed=12,
             target_size=self.im_shape[:-1]
         )
 
