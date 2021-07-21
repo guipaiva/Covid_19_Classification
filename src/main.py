@@ -1,3 +1,4 @@
+from collections import Counter
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from trainers.simple_trainer import SimpleTrainer
@@ -18,7 +19,12 @@ if __name__ == "__main__":
 	data = {'train': train_data, 'validation': validation_data}
 
 	model = resnet50V2.ResNet50V2(im_shape, True, 1)
-	
-	trainer = SimpleTrainer(model.model, model.name, data, epochs = 12)
+	counter = Counter(data['train'].classes)
+	samples = data['train'].samples
+	neg_weight = (1 / counter['0']) * (samples / 2.0)
+	pos_weight = (1 / counter['1']) * (samples / 2.0)
+	weights = {0: neg_weight, 1: pos_weight}
+
+	trainer = SimpleTrainer(model.model, model.name, data, epochs = 12, class_weight= weights)
 
 	trainer.train()
