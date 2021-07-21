@@ -19,6 +19,7 @@ class SimpleTrainer(BaseTrainer):
 			self.data["train"],
 			validation_data = self.data["validation"],
 			callbacks = [tensorboard_callback],
+			class_weight = self.class_weight,
 			epochs = self.epochs,
 			verbose = 1
 		)
