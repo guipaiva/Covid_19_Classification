@@ -8,7 +8,7 @@ class CovidxLoader(BaseLoader):
     def __init__(self, directory, im_shape, label_dir, class_mode, batch_size=32):
         super(CovidxLoader, self).__init__(directory, im_shape, batch_size)
         self.generator = ImageDataGenerator(
-            rescale=1./255, validation_split=0.2)
+            rescale=1./255)
         self.dataframe = pd.read_csv(
             label_dir,
             sep=' ',
@@ -17,14 +17,14 @@ class CovidxLoader(BaseLoader):
             header=None
         )
         self.train_df, self.valid_df = train_test_split(
-            self.dataframe, 
+            self.dataframe,
             test_size=0.2,
             random_state=36,
             stratify=self.dataframe['label']
         )
         self.class_mode = class_mode
-        print(self.train_df['label'].value_counts())
-        print(self.valid_df['label'].value_counts())
+        # print(self.train_df['label'].value_counts())
+        # print(self.valid_df['label'].value_counts())
         #print(self.dataframe.loc[self.dataframe['label'] == 'positive'])
 
     def get_train_ds(self):
