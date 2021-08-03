@@ -1,20 +1,21 @@
 from base.base_trainer import BaseTrainer
 import datetime
 import tensorflow as tf
+from utils.definitions import ROOT_DIR
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import csv
 
 class SimpleTrainer(BaseTrainer):
 	def __init__(self, model, name, data, epochs, class_weight):
 		super(SimpleTrainer, self).__init__(model, name, data, epochs)
-		self.log_dir = "../TensorBoard/fit/" + self.name + "/" + datetime.datetime.now().strftime("%d%m")
-		self.accuracy = []
-		self.loss = []
-		self.val_accuracy = []
-		self.val_loss = []
+		self.log_dir = os.path.join(ROOT_DIR,'logs')
+		self.model_name = name
+		self.class_weight = class_weight
 
 	def train(self):
-		tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=self.log_dir, histogram_freq=1)
+		tb_folder = "TensorBoard/fit/" + self.name + "/" + datetime.datetime.now().strftime("%d%m")
+		tb_dir = os.path.join(self.log_dir, tb_folder)
+		tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=tb_dir, histogram_freq=1)
 		history = self.model.fit(
 			self.data["train"],
 			validation_data = self.data["validation"],
@@ -23,8 +24,12 @@ class SimpleTrainer(BaseTrainer):
 			epochs = self.epochs,
 			verbose = 1
 		)
-		self.loss.extend(history.history['loss'])
-		self.accuracy.extend(history.history['accuracy'])
-		self.val_loss.extend(history.history['val_loss'])
-		self.val_accuracy.extend(history.history['val_accuracy'])
+
+		return history
+	
+	
+
+
+		
+
 		
