@@ -7,8 +7,8 @@ from sklearn.model_selection import train_test_split
 class CovidxLoader(BaseLoader):
     def __init__(self, directory, im_shape, label_dir, class_mode, batch_size=32):
         super(CovidxLoader, self).__init__(directory, im_shape, batch_size)
-        self.generator = ImageDataGenerator(
-            rescale=1./255)
+        self.generator = ImageDataGenerator()
+        
         self.dataframe = pd.read_csv(
             label_dir,
             sep=' ',
@@ -16,15 +16,19 @@ class CovidxLoader(BaseLoader):
             usecols=['filename', 'label'],
             header=None
         )
+
         self.train_df, self.valid_df = train_test_split(
             self.dataframe,
             test_size=0.2,
             random_state=36,
             stratify=self.dataframe['label']
         )
+
         self.class_mode = class_mode
-        # print(self.train_df['label'].value_counts())
-        # print(self.valid_df['label'].value_counts())
+        print('='*20, '\n', 'Train:')
+        print(self.train_df['label'].value_counts())
+        print('='*20, '\n', 'Valid:')
+        print(self.valid_df['label'].value_counts())
         #print(self.dataframe.loc[self.dataframe['label'] == 'positive'])
 
     def get_train_ds(self):

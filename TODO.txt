@@ -32,4 +32,4 @@ General:
     Create scripts for training and evaluation
     CLI
     Generate heatmaps from last activation layer
-    Use defined directories
+    Use defined directories [OK]

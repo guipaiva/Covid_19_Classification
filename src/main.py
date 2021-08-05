@@ -1,15 +1,15 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-import numpy as np
-from sklearn.utils import class_weight
-from sklearn.utils.class_weight import compute_class_weight
-
-import utils.tools as tools
-from data_loaders import covidx_loader
-from models import densenet121, resnet50, resnet50V2, vgg16, xception
-from trainers.simple_trainer import SimpleTrainer
 from utils.definitions import DATA_DIR, LOGS_DIR
+from trainers.simple_trainer import SimpleTrainer
+from models import densenet121, resnet50, resnet50V2, vgg16, xception
+from data_loaders import covidx_loader
+import utils.tools as tools
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.utils import class_weight
+import numpy as np
+
+
 
 if __name__ == "__main__":
     dataset_dir = os.path.join(DATA_DIR, 'COVIDx_binary')
@@ -25,10 +25,12 @@ if __name__ == "__main__":
 
     model = resnet50V2.ResNet50V2(im_shape, True, 1)
 
-    class_weights = compute_class_weight('balanced', np.unique(
-        data['train'].classes), data['train'].classes)
+    class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(
+        data['train'].classes), y=data['train'].classes)
 
     weights = dict(enumerate(class_weights))
+    
+    print(weights)
 
     trainer = SimpleTrainer(model.model, model.name,
                             data, epochs=12, class_weight=weights)
