@@ -38,7 +38,6 @@ class ResNet50V2(BaseModel):
 
 		# FC Layers
 		self.model.add(GlobalAveragePooling2D(name='avg_pool'))
-		self.model.add(Dense(512, activation='relu'))
 		self.model.add(
 			Dense(
 				units=self.classes,

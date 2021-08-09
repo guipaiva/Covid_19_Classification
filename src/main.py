@@ -1,17 +1,20 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+from keras import backend as K
 from utils.definitions import DATA_DIR, LOGS_DIR
 from trainers.simple_trainer import SimpleTrainer
 from models import densenet121, resnet50, resnet50V2, vgg16, xception
 from data_loaders import covidx_loader
 import utils.tools as tools
 from sklearn.utils.class_weight import compute_class_weight
-from sklearn.utils import class_weight
 import numpy as np
 
 
 
 if __name__ == "__main__":
+    models = [densenet121.DenseNet121, resnet50V2.ResNet50V2, resnet50.ResNet50, vgg16.VGG16, xception.Xception]
+
     dataset_dir = os.path.join(DATA_DIR, 'COVIDx_binary')
     train_dir = os.path.join(dataset_dir, 'train')
     label_dir = os.path.join(dataset_dir, 'train.txt')
@@ -23,17 +26,15 @@ if __name__ == "__main__":
     validation_data = loader.get_validation_ds()
     data = {'train': train_data, 'validation': validation_data}
 
-    model = resnet50V2.ResNet50V2(im_shape, True, 1)
-
-    class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(
-        data['train'].classes), y=data['train'].classes)
-
-    weights = dict(enumerate(class_weights))
-    
-    print(weights)
-
-    trainer = SimpleTrainer(model.model, model.name,
-                            data, epochs=12, class_weight=weights)
-
-    history = trainer.train()
-    tools.write_raw(history.history, LOGS_DIR, model.name)
+    for model in models:
+        model = model(im_shape, True, 1)
+        class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(
+            data['train'].classes), y=data['train'].classes)
+        weights = dict(enumerate(class_weights))
+        print(weights)
+        trainer = SimpleTrainer(model.model, model.name,
+                                data, epochs=12, class_weight=weights)
+        history = trainer.train()
+        tools.write_raw(history.history, LOGS_DIR, model.name)
+        print(model.name + 'Trained\n\n')
+        K.clear_session()
