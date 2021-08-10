@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 import numpy as np
 import utils.tools as tools
 from data_loaders import covidx_loader
@@ -5,8 +8,6 @@ from models import densenet121, resnet50, resnet50V2, vgg16, xception
 from trainers import binary_trainer, multiclass_trainer
 from utils.definitions import DATA_DIR, LOGS_DIR
 from keras import backend as K
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 if __name__ == "__main__":
@@ -31,6 +32,7 @@ if __name__ == "__main__":
         model = model(im_shape, True, 1)
         trainer = multiclass_trainer.MulticlassTrainer(model.model, model.name, data, epochs=12)
         history = trainer.train()
+        logs_dir = os.path.join(LOGS_DIR, *['raw','multiclass'])
         tools.write_raw(history.history, LOGS_DIR, model.name)
         print(model.name + ' Trained\n\n')
         K.clear_session()

@@ -16,9 +16,10 @@ class MulticlassTrainer(BaseTrainer):
 
         self.class_weight = dict(enumerate(compute_class_weight(class_weight='balanced', classes=np.unique(
             data['train'].classes), y=data['train'].classes)))
+        print(self.class_weight)
 
     def train(self):
-        tb_folder = "multiclass/" + self.name + "/" + datetime.datetime.now().strftime("%d%m")
+        tb_folder = "TensorBoard/multiclass/" + self.name + "/" + datetime.datetime.now().strftime("%d%m")
         tb_dir = os.path.join(self.log_dir, tb_folder)
         tensorboard_callback = tf.keras.callbacks.TensorBoard(
             log_dir=tb_dir, histogram_freq=1)
