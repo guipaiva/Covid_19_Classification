@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 from keras import backend as K
 from utils.definitions import DATA_DIR, LOGS_DIR
 from trainers import binary_trainer, multiclass_trainer
@@ -5,9 +8,6 @@ from models import densenet121, resnet50, resnet50V2, vgg16, xception
 from data_loaders import covidx_loader
 import utils.tools as tools
 import numpy as np
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 
 if __name__ == "__main__":
     models = [densenet121.DenseNet121, resnet50V2.ResNet50V2,
