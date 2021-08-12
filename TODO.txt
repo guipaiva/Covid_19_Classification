@@ -1,32 +1,30 @@
 Models: 
-    Pre-process input for each model 
-    Fix loss function for binary or multiclass classification
-    Rebuild prediction layer with activation function based on n_classes
+    Pre-process input for each model [OK]
+    Fix loss function for binary or multiclass classification [OK]
+    Rebuild prediction layer with activation function based on n_classes [OK]
     Implement top layers on each model
         - Xception [OK]
         - Densenet [OK]
         - ResnetV2 [OK]
         - Resnet   [OK]
         - VGG16    [OK]
+    Create different models for Binary/Multiclass classification
+
 
 Loaders: 
     Implement multiclass option on loaders
-        - One-hot for multiclass
-        - Binary for positive/negative
-            * CovidX [OK]
-            * SIRM [ ]
+        - One-hot for multiclass [OK] - (Class mode = Categorical)
+        - Binary for positive/negative [OK]
 
 Data:
-    Organize data for multi/binary classification
-        - CovidX [OK]
-    Verify unbalanced data
-        - CovidX [OK]
+    Organize data for multi/binary classification [OK]
+    Verify unbalanced data [OK] - Class Weights
 
 Trainers:
-    Fix trainer script for multi/binary classification
-        - AUC on binary classification
-        - Confusion matrix
-        - Other metrics
+    Fix trainer script for multi/binary classification [OK]
+        - AUC on binary classification [OK]
+        - Confusion matrix [OK]
+        - Other metrics [OK] - Precision, Recall
 
 General:
     Create scripts for training and evaluation
