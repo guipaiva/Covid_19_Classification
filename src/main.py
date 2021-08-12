@@ -10,8 +10,7 @@ import utils.tools as tools
 import numpy as np
 
 if __name__ == "__main__":
-    models = [densenet121.DenseNet121, resnet50V2.ResNet50V2,
-              resnet50.ResNet50, vgg16.VGG16, xception.Xception]
+    #models = [densenet121.DenseNet121, resnet50V2.ResNet50V2,resnet50.ResNet50, vgg16.VGG16, xception.Xception]
 
     dataset_dir = os.path.join(DATA_DIR, 'COVIDx_Multiclass')
     train_dir = os.path.join(dataset_dir, 'train')
@@ -29,13 +28,19 @@ if __name__ == "__main__":
     data = {'train': train_data, 'validation': validation_data}
 
     # TODO: make train.py
-
-    for model in models:
-        model = model(im_shape=im_shape, transfer_learn=True, classes=3)
-        trainer = multiclass_trainer.MulticlassTrainer(
-            model.model, model.name, data, epochs=12)
-        history = trainer.train()
-        logs_dir = os.path.join(LOGS_DIR, *['raw', 'multiclass'])
-        tools.write_raw(history.history, LOGS_DIR, model.name)
-        print(model.name + ' Trained\n\n')
-        K.clear_session()
+    model = densenet121.DenseNet121(im_shape=im_shape, transfer_learn=True, classes=3)
+    trainer = multiclass_trainer.MulticlassTrainer(model.model, model.name, data, epochs=12)
+    history = trainer.train()
+    logs_dir = os.path.join(LOGS_DIR, *['raw', 'multiclass'])
+    tools.write_raw(history.history, LOGS_DIR, model.name)
+    print(model.name + ' Trained\n\n')
+    
+    # for model in models:
+    #     model = model(im_shape=im_shape, transfer_learn=True, classes=3)
+    #     trainer = multiclass_trainer.MulticlassTrainer(
+    #         model.model, model.name, data, epochs=12)
+    #     history = trainer.train()
+    #     logs_dir = os.path.join(LOGS_DIR, *['raw', 'multiclass'])
+    #     tools.write_raw(history.history, LOGS_DIR, model.name)
+    #     print(model.name + ' Trained\n\n')
+    #     K.clear_session()

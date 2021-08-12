@@ -47,7 +47,7 @@ class DenseNet121(BaseModel):
         self.model.compile(
             optimizer='adam',
             loss=self.loss,
-            metrics=['accuracy']
+            metrics=['accuracy', 'precision', 'recall']
         )
 
         print('Model built')
