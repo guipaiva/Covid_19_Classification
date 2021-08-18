@@ -1,4 +1,6 @@
 import os
+
+from tensorflow.keras import metrics
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 import tensorflow.keras.applications as applications
@@ -46,10 +48,22 @@ class ResNet50V2(BaseModel):
 			),
 		)
 
+		METRICS = [
+            metrics.TruePositives(name='tp'),
+            metrics.FalsePositives(name='fp'),
+            metrics.TrueNegatives(name='tn'),
+            metrics.FalseNegatives(name='fn'), 
+            metrics.CategoricalAccuracy(name='accuracy'),
+            metrics.Precision(name='precision'),
+            metrics.Recall(name='recall'),
+            metrics.AUC(name='auc'),
+            metrics.AUC(name='prc', curve='PR')
+        ]
+
 		self.model.compile(
 			optimizer='adam',
 			loss=self.loss,
-			metrics=['accuracy']
+			metrics= METRICS
 		)
 
 		print('Model built')

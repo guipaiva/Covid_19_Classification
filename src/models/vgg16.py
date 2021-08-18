@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras import metrics
 import tensorflow.keras.applications as applications
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.layers import Flatten, Dense, Lambda, Flatten, BatchNormalization, Dropout
@@ -52,24 +53,25 @@ class VGG16(BaseModel):
                 name='VGG_FC2'
             )
         )
-        self.model.add(
-            Dense(
-                units=512,
-                activation='relu',
-                name='Dense1'
-            )
-        )
-        self.model.add(BatchNormalization(name='BN1'))
-        self.model.add(
-            Dense(
-                units=128,
-                activation='relu',
-                name='Dense2'
-            )
-        )
-        self.model.add(
-            Dropout(rate = 0.5)
-        )
+        # self.model.add(
+        #     Dense(
+        #         units=512,
+        #         activation='relu',
+        #         name='Dense1'
+        #     )
+        # )
+        # self.model.add(BatchNormalization(name='BN1'))
+        # self.model.add(
+        #     Dense(
+        #         units=128,
+        #         activation='relu',
+        #         name='Dense2'
+        #     )
+        # )
+        # self.model.add(
+        #     Dropout(rate = 0.5)
+        # )
+
         self.model.add(
             Dense(
                 units=self.classes,
@@ -78,10 +80,23 @@ class VGG16(BaseModel):
             )
         )
 
+        METRICS = [
+            metrics.TruePositives(name='tp'),
+            metrics.FalsePositives(name='fp'),
+            metrics.TrueNegatives(name='tn'),
+            metrics.FalseNegatives(name='fn'), 
+            metrics.CategoricalAccuracy(name='accuracy'),
+            metrics.Precision(name='precision'),
+            metrics.Recall(name='recall'),
+            metrics.AUC(name='auc'),
+            metrics.AUC(name='prc', curve='PR')
+        ]
+
+
         self.model.compile(
             optimizer='adam',
             loss=self.loss,
-            metrics=['accuracy']
+            metrics=METRICS
         )
 
         print('Model built')

@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras import metrics
 import tensorflow.keras.applications as applications
 from tensorflow.keras.applications.resnet import preprocess_input
 from base.base_model import BaseModel
@@ -45,10 +46,22 @@ class ResNet50(BaseModel):
             ),
         )
 
+        METRICS = [
+            metrics.TruePositives(name='tp'),
+            metrics.FalsePositives(name='fp'),
+            metrics.TrueNegatives(name='tn'),
+            metrics.FalseNegatives(name='fn'), 
+            metrics.CategoricalAccuracy(name='accuracy'),
+            metrics.Precision(name='precision'),
+            metrics.Recall(name='recall'),
+            metrics.AUC(name='auc'),
+            metrics.AUC(name='prc', curve='PR')
+        ]
+
         self.model.compile(
             optimizer='adam',
             loss=self.loss,
-            metrics=['accuracy']
+            metrics= METRICS
         )
 
         print('Model built')
