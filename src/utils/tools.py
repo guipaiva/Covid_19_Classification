@@ -6,6 +6,6 @@ def write_raw(data, log_dir, model_name):
 		fname = os.path.join(log_dir, model_name + '.csv')
 		with open(fname,'w') as file:
 			writer = csv.writer(file)
-			writer.writerow(('train_acc','train_loss','validation_acc','validation_loss'))
-			zip_data = zip(data['loss'], data['accuracy'], data['val_accuracy'], data['val_loss'])
+			writer.writerow([str(key) for key in data.keys()])
+			zip_data = zip(data.values())
 			writer.writerows(zip_data)
