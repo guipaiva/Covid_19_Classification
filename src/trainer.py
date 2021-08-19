@@ -31,7 +31,7 @@ class Trainer:
             "/" + datetime.datetime.now().strftime("%d%m")
         tb_dir = os.path.join(LOGS_DIR, tb_folder)
         csv_folder = 'raw' + '/' + self.class_mode
-        csv_dir = os.path.join(LOGS_DIR, [csv_folder, f'{self.model_name}.csv'])
+        csv_dir = os.path.join(LOGS_DIR, *[csv_folder, f'{self.model_name}.csv'])
         os.makedirs(csv_dir, exist_ok = True)
         csv_logger = CSVLogger(csv_dir + '/train.csv')
         tensorboard_callback = TensorBoard(log_dir=tb_dir, histogram_freq=1)
