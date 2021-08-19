@@ -1,23 +1,16 @@
 import tensorflow as tf
-from tensorflow.keras import metrics
 import tensorflow.keras.applications as applications
-from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.layers import Flatten, Dense, Lambda, Flatten, BatchNormalization, Dropout
+#pylint: disable=import-error
 from base.base_model import BaseModel
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.layers import (BatchNormalization, Dense, Dropout,
+                                     Flatten, Lambda)
 
 
 class VGG16(BaseModel):
-    def __init__(self, im_shape, transfer_learn, classes):
+    def __init__(self, im_shape, transfer_learn, classes, metrics):
         name = 'VGG16'
-        super(VGG16, self).__init__(name, im_shape, transfer_learn)
-        self.classes = classes
-        self.activation_function = 'sigmoid' if classes == 1 else 'softmax'
-        self.weights = 'imagenet' if self.transfer_learn else None
-        self.layers_trainable = False if self.transfer_learn else True
-        self.loss = 'binary_crossentropy' if classes == 1 else 'categorical_crossentropy'
-
+        super(VGG16, self).__init__(name, im_shape, transfer_learn, classes, metrics)
         self.build_model()
 
     def build_model(self):
@@ -26,18 +19,17 @@ class VGG16(BaseModel):
         self.model.add(
             Lambda(preprocess_input, input_shape=self.im_shape, name='preproc'))
 
-        vgg = applications.VGG16(
+        base_vgg = applications.VGG16(
             include_top=False,
             input_shape=self.im_shape,
             weights=self.weights
         )
 
-        for layer in vgg.layers:
-            layer.trainable = self.layers_trainable
+        base_vgg.trainable = self.layers_trainable
 
-        self.model.add(vgg)
+        self.model.add(base_vgg)
 
-        # FC layers
+        # Base top layers
         self.model.add(Flatten(name='Flatten'))
         self.model.add(
             Dense(
@@ -53,6 +45,7 @@ class VGG16(BaseModel):
                 name='VGG_FC2'
             )
         )
+        # More FC Layers
         # self.model.add(
         #     Dense(
         #         units=512,
@@ -80,23 +73,10 @@ class VGG16(BaseModel):
             )
         )
 
-        METRICS = [
-            metrics.TruePositives(name='tp'),
-            metrics.FalsePositives(name='fp'),
-            metrics.TrueNegatives(name='tn'),
-            metrics.FalseNegatives(name='fn'), 
-            metrics.CategoricalAccuracy(name='accuracy'),
-            metrics.Precision(name='precision'),
-            metrics.Recall(name='recall'),
-            metrics.AUC(name='auc'),
-            metrics.AUC(name='prc', curve='PR')
-        ]
-
-
         self.model.compile(
             optimizer='adam',
             loss=self.loss,
-            metrics=METRICS
+            metrics=self.metrics
         )
 
         print('Model built')

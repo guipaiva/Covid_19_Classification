@@ -1,0 +1,44 @@
+import datetime
+import os
+import numpy as np
+import tensorflow as tf
+from sklearn.utils.class_weight import compute_class_weight
+# pylint: disable=import-error
+from utils.definitions import LOGS_DIR
+
+
+class Trainer:
+    def __init__(self, model, name, data, epochs, class_mode):
+        self.model = model
+        self.data = data
+        self.epochs = epochs
+        self.model_name = name
+        self.class_mode = class_mode
+
+        n_classes = np.unique(data['train'].classes)
+        labels = data['train'].classes
+        class_weights = compute_class_weight(
+            class_weight='balanced',
+            classes=n_classes,
+            y=labels
+        )
+        self.class_weight = dict(enumerate(class_weights))
+
+    def train(self):
+        tb_folder = self.class_mode + "/" + self.model_name + \
+            "/" + datetime.datetime.now().strftime("%d%m%h")
+        tb_dir = os.path.join(LOGS_DIR, tb_folder)
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(
+            log_dir=tb_dir, histogram_freq=1)
+        # TODO: Add confusion matrix, F1-Score, ROC AUC
+
+        history = self.model.fit(
+            self.data["train"],
+            validation_data=self.data["validation"],
+            callbacks=[tensorboard_callback],
+            class_weight=self.class_weight,
+            epochs=self.epochs,
+            verbose=1
+        )
+
+        return history

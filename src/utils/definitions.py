@@ -8,7 +8,6 @@ DATA_DIR = os.path.join(ROOT_DIR, 'data')
 LOGS_DIR = os.path.join(ROOT_DIR, 'logs')
 
 MODELS_DIR = os.path.join(SRC_DIR, 'models')
-TRAINERS_DIR = os.path.join(SRC_DIR, 'trainers')
 LOADERS_DIR = os.path.join(SRC_DIR, 'data_loader')
 
 

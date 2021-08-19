@@ -1,23 +1,17 @@
 import tensorflow as tf
-from tensorflow.keras import metrics
 import tensorflow.keras.applications as applications
-from tensorflow.keras.applications.densenet import preprocess_input
+#pylint: disable=import-error
 from base.base_model import BaseModel
+from tensorflow.keras import metrics
+from tensorflow.keras.applications.densenet import preprocess_input
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Lambda
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class DenseNet121(BaseModel):
-    def __init__(self, im_shape, transfer_learn, classes):
+    def __init__(self, im_shape, transfer_learn, classes, metrics):
         name = 'DenseNet121'
-        super(DenseNet121, self).__init__(name, im_shape, transfer_learn)
-        self.classes = classes
-        self.activation_function = 'sigmoid' if classes == 1 else 'softmax'
-        self.weights = 'imagenet' if self.transfer_learn else None
-        self.layers_trainable = False if self.transfer_learn else True
-        self.loss = 'binary_crossentropy' if classes == 1 else 'categorical_crossentropy'
-
+        super(DenseNet121, self).__init__(name, im_shape, transfer_learn, classes, metrics)
+       
         self.build_model()
 
     def build_model(self):
@@ -26,16 +20,17 @@ class DenseNet121(BaseModel):
         self.model.add(
             Lambda(preprocess_input, input_shape=self.im_shape, name='preproc'))
 
-        densenet = applications.DenseNet121(
+        base_densenet = applications.DenseNet121(
             include_top=False,
             input_shape=self.im_shape,
             weights=self.weights
         )
 
-        densenet.trainable = self.layers_trainable
-        self.model.add(densenet)
+        base_densenet.trainable = self.layers_trainable
 
-        # FC Layers
+        self.model.add(base_densenet)
+
+        #Top Layers
         self.model.add(GlobalAveragePooling2D(name='avg_pool'))
         self.model.add(
             Dense(
@@ -44,23 +39,11 @@ class DenseNet121(BaseModel):
                 name='predictions'
             ),
         )
-        METRICS = [
-            metrics.TruePositives(name='tp'),
-            metrics.FalsePositives(name='fp'),
-            metrics.TrueNegatives(name='tn'),
-            metrics.FalseNegatives(name='fn'), 
-            metrics.CategoricalAccuracy(name='accuracy'),
-            metrics.Precision(name='precision'),
-            metrics.Recall(name='recall'),
-            metrics.AUC(name='auc'),
-            metrics.AUC(name='prc', curve='PR')
-        ]
-
 
         self.model.compile(
             optimizer='adam',
             loss=self.loss,
-            metrics = METRICS
+            metrics = self.metrics
         )
 
         print('Model built')
