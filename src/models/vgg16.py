@@ -45,25 +45,26 @@ class VGG16(BaseModel):
                 name='VGG_FC2'
             )
         )
+        
         # More FC Layers
-        # self.model.add(
-        #     Dense(
-        #         units=512,
-        #         activation='relu',
-        #         name='Dense1'
-        #     )
-        # )
-        # self.model.add(BatchNormalization(name='BN1'))
-        # self.model.add(
-        #     Dense(
-        #         units=128,
-        #         activation='relu',
-        #         name='Dense2'
-        #     )
-        # )
-        # self.model.add(
-        #     Dropout(rate = 0.5)
-        # )
+        self.model.add(
+            Dense(
+                units=512,
+                activation='relu',
+                name='Dense1'
+            )
+        )
+        self.model.add(
+            Dropout(rate = 0.5)
+        )
+        self.model.add(
+            Dense(
+                units=128,
+                activation='relu',
+                name='Dense2'
+            )
+        )
+
 
         self.model.add(
             Dense(

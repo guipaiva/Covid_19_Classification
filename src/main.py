@@ -15,7 +15,7 @@ if __name__ == "__main__":
     CLASS_MODE = 'multiclass'
 
     models = [densenet121.DenseNet121, resnet50V2.ResNet50V2,
-              resnet50.ResNet50, vgg16.VGG16, xception.Xception]
+              resnet50.ResNet50, vgg16.VGG16]
 
 
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
         keras.metrics.FalseNegatives(name='fn'),
         keras.metrics.Precision(name='precision'),
         keras.metrics.Recall(name='recall'),
-        keras.metrics.AUC(name='auc')
+        #keras.metrics.AUC(name='auc')
     ]
 
     if CLASS_MODE == 'binary':
@@ -64,10 +64,10 @@ if __name__ == "__main__":
         )
         history = trainer.train()
 
-        logs_dir = os.path.join(LOGS_DIR, *['raw', CLASS_MODE])
+        # logs_dir = os.path.join(LOGS_DIR, *['raw', CLASS_MODE])
 
-        tools.write_raw(history.history, log_dir=logs_dir,
-                        model_name=model.name)
+        # tools.write_raw(history.history, log_dir=logs_dir,
+        #                 model_name=model.name)
 
         print(model.name + ' Trained\n\n')
         K.clear_session()
