@@ -46,26 +46,6 @@ class VGG16(BaseModel):
             )
         )
         
-        # More FC Layers
-        self.model.add(
-            Dense(
-                units=512,
-                activation='relu',
-                name='Dense1'
-            )
-        )
-        self.model.add(
-            Dropout(rate = 0.5)
-        )
-        self.model.add(
-            Dense(
-                units=128,
-                activation='relu',
-                name='Dense2'
-            )
-        )
-
-
         self.model.add(
             Dense(
                 units=self.classes,
