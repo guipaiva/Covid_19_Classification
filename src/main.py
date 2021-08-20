@@ -5,7 +5,7 @@ import numpy as np
 from tensorflow import keras
 from tensorflow.keras import backend as K
 
-import trainer
+from trainer import Trainer
 import utils.tools as tools
 from data_loaders import covidx_loader
 from models import densenet121, resnet50, resnet50V2, vgg16, xception
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         model = model(im_shape=im_shape, transfer_learn=True,
                       classes=3, metrics=METRICS)
 
-        trainer = trainer.Trainer(
+        trainer = Trainer(
             model= model.model,
             name = model.name,
             data = data,
