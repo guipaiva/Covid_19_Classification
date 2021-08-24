@@ -5,10 +5,13 @@ from sklearn.model_selection import train_test_split
 
 
 class CovidxLoader(BaseLoader):
-    def __init__(self, directory, im_shape, label_dir, class_mode, batch_size=32):
+    def __init__(self, directory, im_shape, label_dir, class_mode, transfer_learn, batch_size=32):
         super(CovidxLoader, self).__init__(directory, im_shape, batch_size)
-        self.generator = ImageDataGenerator()
-        
+        if transfer_learn:
+            self.generator = ImageDataGenerator()
+        else:
+            self.generator = ImageDataGenerator(rescale=1./255)
+            
         self.dataframe = pd.read_csv(
             label_dir,
             sep=' ',

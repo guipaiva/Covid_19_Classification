@@ -27,7 +27,8 @@ if __name__ == "__main__":
     loader = covidx_loader.CovidxLoader(directory=train_dir,
                                         im_shape=im_shape,
                                         label_dir=label_dir,
-                                        class_mode='categorical')
+                                        class_mode='categorical',
+                                        transfer_learn= False)
 
     train_data = loader.get_train_ds()
     # print(train_data.class_indices)
@@ -43,7 +44,7 @@ if __name__ == "__main__":
         keras.metrics.FalseNegatives(name='fn'),
         keras.metrics.Precision(name='precision'),
         keras.metrics.Recall(name='recall'),
-        #keras.metrics.AUC(name='auc')
+        keras.metrics.AUC(name='auc')
     ]
 
     if CLASS_MODE == 'binary':
@@ -52,7 +53,7 @@ if __name__ == "__main__":
         METRICS.append(keras.metrics.CategoricalAccuracy())
 
     for model in models:
-        model = model(im_shape=im_shape, transfer_learn=True,
+        model = model(im_shape=im_shape, transfer_learn=False,
                       classes=3, metrics=METRICS)
 
         trainer = Trainer(

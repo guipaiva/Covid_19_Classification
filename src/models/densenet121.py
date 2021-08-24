@@ -17,8 +17,10 @@ class DenseNet121(BaseModel):
     def build_model(self):
         print('Building {}...'.format(self.name))
         self.model = tf.keras.Sequential()
-        self.model.add(
-            Lambda(preprocess_input, input_shape=self.im_shape, name='preproc'))
+        
+        if not self.transfer_learn:
+            self.model.add(
+                Lambda(preprocess_input, input_shape=self.im_shape, name='preproc'))
 
         base_densenet = applications.DenseNet121(
             include_top=False,
