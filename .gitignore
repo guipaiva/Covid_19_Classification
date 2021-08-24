@@ -136,4 +136,6 @@ logs/
 
 #Models top layers info
 models_info/
-fit_bin.zip
+
+#Zipped logs
+*.zip
